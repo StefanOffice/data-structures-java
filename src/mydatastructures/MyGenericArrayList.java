@@ -48,4 +48,42 @@ public class MyGenericArrayList<E> {
         }
     }
     
+    public E remove(int index) {
+        checkIndex(index);
+        E e = elements[index];
+        for (int j = index; j < size - 1; j++)
+            elements[j] = elements[j + 1];
+        
+        elements[size - 1] = null;
+        size--;
+        return e;
+    }
+    
+    public E remove(E e){
+        int index = indexOf(e);
+        return remove(index);
+    }
+    
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException
+                    ("Index: " + index + ", Size: " + size);
+    }
+    
+    public int indexOf(E e) {
+        for (int i = 0; i < size; i++)
+            if (e.equals(elements[i])) return i;
+        
+        return -1;
+    }
+    
+    public int lastIndexOf(E e) {
+        for (int i = size - 1; i >= 0; i--)
+            if (e.equals(elements[i])) return i;
+        
+        return -1;
+    }
+    
+    
+    
 }
