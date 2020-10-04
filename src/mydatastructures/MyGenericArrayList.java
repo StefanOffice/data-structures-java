@@ -84,6 +84,69 @@ public class MyGenericArrayList<E> {
         return -1;
     }
     
+    public void clear() {
+        @SuppressWarnings("unchecked")
+        E[] cleared = (E[])new Object[16];
+        elements =cleared;
+        size = 0;
+    }
+    
+    public boolean contains(E e) {
+        for (int i = 0; i < size; i++)
+            if (e.equals(elements[i])) return true;
+        
+        return false;
+    }
+    
+    public E get(int index) {
+        checkIndex(index);
+        return elements[index];
+    }
+    
+    public E set(int index, E e) {
+        checkIndex(index);
+        E temp = elements[index];
+        elements[index] = e;
+        return temp;
+    }
+    
+    public int size() {
+        return size;
+    }
+    
+    public void trimToSize() {
+        if (size != elements.length) {
+            @SuppressWarnings("unchecked")
+            E[] newData = (E[])(new Object[size]);
+            System.arraycopy(elements, 0, newData, 0, size);
+            
+            System.out.println("\nFOR DEMONSTRATION: decreasing internal capacity."
+                    + " \n Old Capacity = " + elements.length
+                    + " \n New Capacity = " + newData.length
+                    + " \n Size = " + size + "\n");
+            
+            elements = newData;
+        }
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        
+        for (int i = 0; i < size; i++) {
+            sb.append(elements[i]);
+            sb.append(", ");
+        }
+        
+        if(sb.length() > 2) {
+            sb.deleteCharAt(sb.length() - 1);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        
+        sb.append("]");
+        return sb.toString();
+    }
+    
     
     
 }
